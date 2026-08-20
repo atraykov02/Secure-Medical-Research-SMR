@@ -1,0 +1,89 @@
+services:
+  hospital-a-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: hospital
+      POSTGRES_USER: precision
+      POSTGRES_PASSWORD: precision
+    volumes:
+      - hospital_a_data:/var/lib/postgresql/data
+
+  hospital-b-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: hospital
+      POSTGRES_USER: precision
+      POSTGRES_PASSWORD: precision
+    volumes:
+      - hospital_b_data:/var/lib/postgresql/data
+
+  hospital-c-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: hospital
+      POSTGRES_USER: precision
+      POSTGRES_PASSWORD: precision
+    volumes:
+      - hospital_c_data:/var/lib/postgresql/data
+
+  hospital-a:
+    build:
+      context: .
+      dockerfile: hospital_node/Dockerfile
+    ports: ["8101:8000"]
+    depends_on: [hospital-a-db]
+    environment:
+      HOSPITAL_PARTICIPANT_ID: "1"
+      HOSPITAL_ORGANIZATION_NAME: "Hospital A"
+      HOSPITAL_PARTICIPANT_IDS: '[1,2,3]'
+      HOSPITAL_THRESHOLD: "1"
+      HOSPITAL_DATABASE_URL: postgresql+psycopg://precision:precision@hospital-a-db:5432/hospital
+      HOSPITAL_SERVICE_TOKEN: precision-mpc-demo-token
+      HOSPITAL_PEER_URLS: '{"1":"http://hospital-a:8000","2":"http://hospital-b:8000","3":"http://hospital-c:8000"}'
+      HOSPITAL_AUTO_CREATE_SCHEMA: "true"
+      HOSPITAL_AUTO_SEED: "true"
+      HOSPITAL_SYNTHETIC_PATIENT_COUNT: "500"
+      HOSPITAL_SYNTHETIC_SEED: "101"
+
+  hospital-b:
+    build:
+      context: .
+      dockerfile: hospital_node/Dockerfile
+    ports: ["8102:8000"]
+    depends_on: [hospital-b-db]
+    environment:
+      HOSPITAL_PARTICIPANT_ID: "2"
+      HOSPITAL_ORGANIZATION_NAME: "Hospital B"
+      HOSPITAL_PARTICIPANT_IDS: '[1,2,3]'
+      HOSPITAL_THRESHOLD: "1"
+      HOSPITAL_DATABASE_URL: postgresql+psycopg://precision:precision@hospital-b-db:5432/hospital
+      HOSPITAL_SERVICE_TOKEN: precision-mpc-demo-token
+      HOSPITAL_PEER_URLS: '{"1":"http://hospital-a:8000","2":"http://hospital-b:8000","3":"http://hospital-c:8000"}'
+      HOSPITAL_AUTO_CREATE_SCHEMA: "true"
+      HOSPITAL_AUTO_SEED: "true"
+      HOSPITAL_SYNTHETIC_PATIENT_COUNT: "500"
+      HOSPITAL_SYNTHETIC_SEED: "202"
+
+  hospital-c:
+    build:
+      context: .
+      dockerfile: hospital_node/Dockerfile
+    ports: ["8103:8000"]
+    depends_on: [hospital-c-db]
+    environment:
+      HOSPITAL_PARTICIPANT_ID: "3"
+      HOSPITAL_ORGANIZATION_NAME: "Hospital C"
+      HOSPITAL_PARTICIPANT_IDS: '[1,2,3]'
+      HOSPITAL_THRESHOLD: "1"
+      HOSPITAL_DATABASE_URL: postgresql+psycopg://precision:precision@hospital-c-db:5432/hospital
+      HOSPITAL_SERVICE_TOKEN: precision-mpc-demo-token
+      HOSPITAL_PEER_URLS: '{"1":"http://hospital-a:8000","2":"http://hospital-b:8000","3":"http://hospital-c:8000"}'
+      HOSPITAL_AUTO_CREATE_SCHEMA: "true"
+      HOSPITAL_AUTO_SEED: "true"
+      HOSPITAL_SYNTHETIC_PATIENT_COUNT: "500"
+      HOSPITAL_SYNTHETIC_SEED: "303"
+
+volumes:
+  hospital_a_data:
+  hospital_b_data:
+  hospital_c_data:

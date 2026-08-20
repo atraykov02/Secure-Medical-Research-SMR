@@ -1,0 +1,384 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "5174:80"
+    depends_on:
+      - coordinator
+    restart: unless-stopped
+
+  coordinator-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: precision_mpc
+      POSTGRES_USER: precision
+      POSTGRES_PASSWORD: precision
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U precision -d precision_mpc"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - coordinator_data:/var/lib/postgresql/data
+
+  coordinator:
+    build:
+      context: .
+      dockerfile: coordinator/Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      coordinator-db:
+        condition: service_healthy
+      hospital-a:
+        condition: service_healthy
+      hospital-b:
+        condition: service_healthy
+      hospital-c:
+        condition: service_healthy
+      hospital-d:
+        condition: service_healthy
+      hospital-e:
+        condition: service_healthy
+      hospital-f:
+        condition: service_healthy
+      hospital-g:
+        condition: service_healthy
+    restart: unless-stopped
+    environment:
+      COORDINATOR_DATABASE_URL: postgresql+psycopg://precision:precision@coordinator-db:5432/precision_mpc
+      COORDINATOR_AUTO_CREATE_SCHEMA: "true"
+      COORDINATOR_AUTO_SEED: "true"
+      COORDINATOR_JWT_SECRET: precision-mpc-demo-jwt-secret-change-before-production-123456
+      COORDINATOR_MPC_SERVICE_TOKEN: precision-mpc-demo-token
+      COORDINATOR_THRESHOLD: "1"
+      COORDINATOR_MINIMUM_COHORT_SIZE: "10"
+      COORDINATOR_CORS_ORIGINS: '["http://localhost:5174"]'
+      COORDINATOR_HOSPITAL_PUBLIC_URLS: '{"1":"http://localhost:8101","2":"http://localhost:8102","3":"http://localhost:8103","4":"http://localhost:8104","5":"http://localhost:8105","6":"http://localhost:8106","7":"http://localhost:8107"}'
+
+  hospital-a-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: hospital
+      POSTGRES_USER: precision
+      POSTGRES_PASSWORD: precision
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U precision -d hospital"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - hospital_a_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  hospital-b-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: hospital
+      POSTGRES_USER: precision
+      POSTGRES_PASSWORD: precision
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U precision -d hospital"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - hospital_b_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  hospital-c-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: hospital
+      POSTGRES_USER: precision
+      POSTGRES_PASSWORD: precision
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U precision -d hospital"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - hospital_c_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  hospital-d-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: hospital
+      POSTGRES_USER: precision
+      POSTGRES_PASSWORD: precision
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U precision -d hospital"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - hospital_d_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  hospital-e-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: hospital
+      POSTGRES_USER: precision
+      POSTGRES_PASSWORD: precision
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U precision -d hospital"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - hospital_e_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  hospital-f-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: hospital
+      POSTGRES_USER: precision
+      POSTGRES_PASSWORD: precision
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U precision -d hospital"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - hospital_f_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  hospital-g-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: hospital
+      POSTGRES_USER: precision
+      POSTGRES_PASSWORD: precision
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U precision -d hospital"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - hospital_g_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  hospital-a:
+    build:
+      context: .
+      dockerfile: hospital_node/Dockerfile
+    ports:
+      - "8101:8000"
+    depends_on:
+      hospital-a-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+    environment:
+      HOSPITAL_PARTICIPANT_ID: "1"
+      HOSPITAL_ORGANIZATION_NAME: "УМБАЛ Св. Иван Рилски - София"
+      HOSPITAL_PARTICIPANT_IDS: '[1,2,3]'
+      HOSPITAL_THRESHOLD: "1"
+      HOSPITAL_DATABASE_URL: postgresql+psycopg://precision:precision@hospital-a-db:5432/hospital
+      HOSPITAL_SERVICE_TOKEN: precision-mpc-demo-token
+      HOSPITAL_LOCAL_ACCESS_SECRET: precision-mpc-demo-jwt-secret-change-before-production-123456
+      HOSPITAL_PEER_URLS: '{"1":"http://hospital-a:8000","2":"http://hospital-b:8000","3":"http://hospital-c:8000"}'
+      HOSPITAL_AUTO_CREATE_SCHEMA: "true"
+      HOSPITAL_AUTO_SEED: "true"
+      HOSPITAL_SYNTHETIC_PATIENT_COUNT: "500"
+      HOSPITAL_SYNTHETIC_SEED: "101"
+
+  hospital-b:
+    build:
+      context: .
+      dockerfile: hospital_node/Dockerfile
+    ports:
+      - "8102:8000"
+    depends_on:
+      hospital-b-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+    environment:
+      HOSPITAL_PARTICIPANT_ID: "2"
+      HOSPITAL_ORGANIZATION_NAME: "УМБАЛ Св. Георги - Пловдив"
+      HOSPITAL_PARTICIPANT_IDS: '[1,2,3]'
+      HOSPITAL_THRESHOLD: "1"
+      HOSPITAL_DATABASE_URL: postgresql+psycopg://precision:precision@hospital-b-db:5432/hospital
+      HOSPITAL_SERVICE_TOKEN: precision-mpc-demo-token
+      HOSPITAL_LOCAL_ACCESS_SECRET: precision-mpc-demo-jwt-secret-change-before-production-123456
+      HOSPITAL_PEER_URLS: '{"1":"http://hospital-a:8000","2":"http://hospital-b:8000","3":"http://hospital-c:8000"}'
+      HOSPITAL_AUTO_CREATE_SCHEMA: "true"
+      HOSPITAL_AUTO_SEED: "true"
+      HOSPITAL_SYNTHETIC_PATIENT_COUNT: "500"
+      HOSPITAL_SYNTHETIC_SEED: "202"
+
+  hospital-c:
+    build:
+      context: .
+      dockerfile: hospital_node/Dockerfile
+    ports:
+      - "8103:8000"
+    depends_on:
+      hospital-c-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+    environment:
+      HOSPITAL_PARTICIPANT_ID: "3"
+      HOSPITAL_ORGANIZATION_NAME: "УМБАЛ Св. Марина - Варна"
+      HOSPITAL_PARTICIPANT_IDS: '[1,2,3]'
+      HOSPITAL_THRESHOLD: "1"
+      HOSPITAL_DATABASE_URL: postgresql+psycopg://precision:precision@hospital-c-db:5432/hospital
+      HOSPITAL_SERVICE_TOKEN: precision-mpc-demo-token
+      HOSPITAL_LOCAL_ACCESS_SECRET: precision-mpc-demo-jwt-secret-change-before-production-123456
+      HOSPITAL_PEER_URLS: '{"1":"http://hospital-a:8000","2":"http://hospital-b:8000","3":"http://hospital-c:8000"}'
+      HOSPITAL_AUTO_CREATE_SCHEMA: "true"
+      HOSPITAL_AUTO_SEED: "true"
+      HOSPITAL_SYNTHETIC_PATIENT_COUNT: "500"
+      HOSPITAL_SYNTHETIC_SEED: "303"
+
+  hospital-d:
+    build:
+      context: .
+      dockerfile: hospital_node/Dockerfile
+    ports:
+      - "8104:8000"
+    depends_on:
+      hospital-d-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+    environment:
+      HOSPITAL_PARTICIPANT_ID: "4"
+      HOSPITAL_ORGANIZATION_NAME: "УМБАЛ Александровска - София"
+      HOSPITAL_PARTICIPANT_IDS: '[4,5,6]'
+      HOSPITAL_THRESHOLD: "1"
+      HOSPITAL_DATABASE_URL: postgresql+psycopg://precision:precision@hospital-d-db:5432/hospital
+      HOSPITAL_SERVICE_TOKEN: precision-mpc-demo-token
+      HOSPITAL_LOCAL_ACCESS_SECRET: precision-mpc-demo-jwt-secret-change-before-production-123456
+      HOSPITAL_PEER_URLS: '{"4":"http://hospital-d:8000","5":"http://hospital-e:8000","6":"http://hospital-f:8000"}'
+      HOSPITAL_AUTO_CREATE_SCHEMA: "true"
+      HOSPITAL_AUTO_SEED: "true"
+      HOSPITAL_SYNTHETIC_PATIENT_COUNT: "500"
+      HOSPITAL_SYNTHETIC_SEED: "404"
+
+  hospital-e:
+    build:
+      context: .
+      dockerfile: hospital_node/Dockerfile
+    ports:
+      - "8105:8000"
+    depends_on:
+      hospital-e-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+    environment:
+      HOSPITAL_PARTICIPANT_ID: "5"
+      HOSPITAL_ORGANIZATION_NAME: "УМБАЛ Св. Анна - София"
+      HOSPITAL_PARTICIPANT_IDS: '[4,5,6]'
+      HOSPITAL_THRESHOLD: "1"
+      HOSPITAL_DATABASE_URL: postgresql+psycopg://precision:precision@hospital-e-db:5432/hospital
+      HOSPITAL_SERVICE_TOKEN: precision-mpc-demo-token
+      HOSPITAL_LOCAL_ACCESS_SECRET: precision-mpc-demo-jwt-secret-change-before-production-123456
+      HOSPITAL_PEER_URLS: '{"4":"http://hospital-d:8000","5":"http://hospital-e:8000","6":"http://hospital-f:8000"}'
+      HOSPITAL_AUTO_CREATE_SCHEMA: "true"
+      HOSPITAL_AUTO_SEED: "true"
+      HOSPITAL_SYNTHETIC_PATIENT_COUNT: "500"
+      HOSPITAL_SYNTHETIC_SEED: "505"
+
+  hospital-f:
+    build:
+      context: .
+      dockerfile: hospital_node/Dockerfile
+    ports:
+      - "8106:8000"
+    depends_on:
+      hospital-f-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+    environment:
+      HOSPITAL_PARTICIPANT_ID: "6"
+      HOSPITAL_ORGANIZATION_NAME: "УМБАЛ Канев - Русе"
+      HOSPITAL_PARTICIPANT_IDS: '[4,5,6]'
+      HOSPITAL_THRESHOLD: "1"
+      HOSPITAL_DATABASE_URL: postgresql+psycopg://precision:precision@hospital-f-db:5432/hospital
+      HOSPITAL_SERVICE_TOKEN: precision-mpc-demo-token
+      HOSPITAL_LOCAL_ACCESS_SECRET: precision-mpc-demo-jwt-secret-change-before-production-123456
+      HOSPITAL_PEER_URLS: '{"4":"http://hospital-d:8000","5":"http://hospital-e:8000","6":"http://hospital-f:8000"}'
+      HOSPITAL_AUTO_CREATE_SCHEMA: "true"
+      HOSPITAL_AUTO_SEED: "true"
+      HOSPITAL_SYNTHETIC_PATIENT_COUNT: "500"
+      HOSPITAL_SYNTHETIC_SEED: "606"
+
+  hospital-g:
+    build:
+      context: .
+      dockerfile: hospital_node/Dockerfile
+    ports:
+      - "8107:8000"
+    depends_on:
+      hospital-g-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+    environment:
+      HOSPITAL_PARTICIPANT_ID: "7"
+      HOSPITAL_ORGANIZATION_NAME: "Нова болница (Hospital G)"
+      HOSPITAL_PARTICIPANT_IDS: '[5,6,7]'
+      HOSPITAL_THRESHOLD: "1"
+      HOSPITAL_DATABASE_URL: postgresql+psycopg://precision:precision@hospital-g-db:5432/hospital
+      HOSPITAL_SERVICE_TOKEN: precision-mpc-demo-token
+      HOSPITAL_LOCAL_ACCESS_SECRET: precision-mpc-demo-jwt-secret-change-before-production-123456
+      HOSPITAL_PEER_URLS: '{"5":"http://hospital-e:8000","6":"http://hospital-f:8000","7":"http://hospital-g:8000"}'
+      HOSPITAL_AUTO_CREATE_SCHEMA: "true"
+      HOSPITAL_AUTO_SEED: "true"
+      HOSPITAL_SYNTHETIC_PATIENT_COUNT: "500"
+      HOSPITAL_SYNTHETIC_SEED: "707"
+
+volumes:
+  coordinator_data:
+  hospital_a_data:
+  hospital_b_data:
+  hospital_c_data:
+  hospital_d_data:
+  hospital_e_data:
+  hospital_f_data:
+  hospital_g_data:
