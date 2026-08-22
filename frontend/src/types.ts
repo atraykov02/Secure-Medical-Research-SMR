@@ -1,0 +1,17 @@
+export type Role='RESEARCHER'|'ORG_ADMIN'|'SYSTEM_ADMIN'
+export type StudyStatus='DRAFT'|'WAITING_APPROVAL'|'READY'|'COMPUTING'|'COMPLETED'|'FAILED'
+export interface User{id:string;email:string;first_name:string;last_name:string;role:Role;organization_id:string|null;is_active:boolean}
+export interface Organization{id:string;name:string;type:string;node_url:string|null;participant_index:number|null;is_active:boolean}
+export type AnalysisType='VARIANT_FREQUENCY'|'ALLELE_FREQUENCY'|'COHORT_MEAN_AGE'|'THERAPY_RESPONSE_RATE'|'THERAPY_RESPONSE'|'VARIANT_DISEASE_ASSOCIATION'
+export interface Criteria{min_age:number|null;max_age:number|null;sex:string|null;disease_code:string|null;variant_code:string|null;therapy_code:string|null}
+export interface Participant{organization_id:string;organization_name:string;participant_index:number;status:string}
+export interface Study{id:string;name:string;description:string|null;analysis_type:AnalysisType;study_mode:'SECURE'|'DEMONSTRATION';status:StudyStatus;created_by:string;created_at:string;completed_at:string|null;criteria:Criteria;participants:Participant[];result:Record<string,unknown>|null}
+export interface Verification{study_id:string;analysis_type:string;reference:Record<string,number|null>;bgw:Record<string,number|null>;differences:Record<string,number>;verified:boolean;tolerance:number;local_breakdown:Array<Record<string,unknown>>;protocol_trace:Array<{session_id:string;participant_id:number;prime:string;threshold:number;events:Array<Record<string,unknown>>}>}
+export interface MPCSession{id:string;study_id:string;study_name:string;participant_count:number;threshold:number;field_prime:string;security_model:string;status:string;error_message:string|null;started_at:string;completed_at:string|null}
+export interface Audit{id:string;study_id:string|null;user_id:string|null;organization_id:string|null;organization_name:string|null;actor_name:string|null;actor_role:Role|null;event_type:string;metadata:Record<string,unknown>;created_at:string}
+export interface HospitalAccess{organization:Organization;node_url:string;access_token:string;expires_in_seconds:number}
+export interface LocalPatient{identifier:string;age:number;sex:string;diseases:string[];variants:string[];therapies:string[];responses:string[]}
+export interface LocalPatientWrite{identifier:string;age:number;sex:'F'|'M';disease_codes:string[];variants:Array<{code:string;genotype:'0/0'|'0/1'|'1/0'|'1/1'}>;treatments:Array<{therapy_code:string;response:string}>}
+export interface LocalMedicalCatalog{diseases:Array<{code:string;name:string}>;variants:Array<{code:string;name:string;gene:string;chromosome:string;position:number;reference_allele:string;alternate_allele:string}>;therapies:Array<{code:string;name:string}>;genotypes:Array<'0/0'|'0/1'|'1/0'|'1/1'>;responses:Array<{code:string;name:string;is_positive:boolean}>}
+export interface LocalPatients{organization:string;participant_id:number;page:number;page_size:number;total:number;items:LocalPatient[]}
+export interface LocalStudyInput{study_id:string;organization:string;participant_id:number;analysis_type:string;cohort_size:number;variant_count:number|null;alternative_allele_count:number|null;age_sum:number|null;local_mean_age:number|null;treated_count:number|null;responder_count:number|null;a:number|null;b:number|null;c:number|null;d:number|null;local_values_status:string;sharing_status:string}
