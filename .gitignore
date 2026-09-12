@@ -5,6 +5,7 @@ __pycache__/
 .coverage
 htmlcov/
 .venv/
+.tmp-benchmark*/
 
 # Node
 node_modules/

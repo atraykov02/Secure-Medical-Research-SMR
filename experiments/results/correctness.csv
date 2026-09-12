@@ -1,0 +1,7 @@
+analysis,label,result_field,unit,reference_value,bgw_value,absolute_difference,verified
+VARIANT_FREQUENCY,Variant Frequency,frequency_percent,%,22.2,22.2,0.0,True
+ALLELE_FREQUENCY,Allele Frequency,allele_frequency_percent,%,16.7583,16.7583,0.0,True
+COHORT_MEAN_AGE,Cohort Mean Age,mean_age,years,54.9908,54.9908,0.0,True
+THERAPY_RESPONSE_RATE,Therapy Response Rate,response_rate_percent,%,54.5646,54.5646,0.0,True
+THERAPY_RESPONSE,Therapy Response,odds_ratio,OR,2.994737,2.994737,0.0,True
+VARIANT_DISEASE_ASSOCIATION,Variant-Disease Association,odds_ratio,OR,0.968571,0.968571,0.0,True

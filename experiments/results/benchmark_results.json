@@ -1,0 +1,1615 @@
+{
+  "metadata": {
+    "timestamp": "2026-09-12T08:08:33+03:00",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "machine": "AMD64",
+    "processor": "Intel64 Family 6 Model 94 Stepping 3, GenuineIntel",
+    "logical_processors": 8,
+    "python": "3.12.1",
+    "sqlalchemy": "2.0.52",
+    "sqlite": "3.43.1",
+    "participant_counts": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "thresholds": {
+      "3": 1,
+      "4": 1,
+      "5": 2,
+      "6": 2
+    },
+    "dataset_scaling_participants": 3,
+    "prime": 2305843009213693951,
+    "transport": "InMemoryTransport (HTTP/network excluded)",
+    "database": "file-backed SQLite",
+    "repetitions": 9,
+    "warmups": 1,
+    "mpc_iterations_per_sample": 100,
+    "synthetic_seed": 20260911,
+    "timing_statistic": "median; min, max and p95 retained in JSON"
+  },
+  "analysis_records_per_database": 1000,
+  "analysis_participant_count": 3,
+  "participant_records_per_database": 1000,
+  "correctness": [
+    {
+      "analysis": "VARIANT_FREQUENCY",
+      "label": "Variant Frequency",
+      "result_field": "frequency_percent",
+      "unit": "%",
+      "reference_value": 22.2,
+      "bgw_value": 22.2,
+      "absolute_difference": 0.0,
+      "verified": true
+    },
+    {
+      "analysis": "ALLELE_FREQUENCY",
+      "label": "Allele Frequency",
+      "result_field": "allele_frequency_percent",
+      "unit": "%",
+      "reference_value": 16.7583,
+      "bgw_value": 16.7583,
+      "absolute_difference": 0.0,
+      "verified": true
+    },
+    {
+      "analysis": "COHORT_MEAN_AGE",
+      "label": "Cohort Mean Age",
+      "result_field": "mean_age",
+      "unit": "years",
+      "reference_value": 54.9908,
+      "bgw_value": 54.9908,
+      "absolute_difference": 0.0,
+      "verified": true
+    },
+    {
+      "analysis": "THERAPY_RESPONSE_RATE",
+      "label": "Therapy Response Rate",
+      "result_field": "response_rate_percent",
+      "unit": "%",
+      "reference_value": 54.5646,
+      "bgw_value": 54.5646,
+      "absolute_difference": 0.0,
+      "verified": true
+    },
+    {
+      "analysis": "THERAPY_RESPONSE",
+      "label": "Therapy Response",
+      "result_field": "odds_ratio",
+      "unit": "OR",
+      "reference_value": 2.994737,
+      "bgw_value": 2.994737,
+      "absolute_difference": 0.0,
+      "verified": true
+    },
+    {
+      "analysis": "VARIANT_DISEASE_ASSOCIATION",
+      "label": "Variant-Disease Association",
+      "result_field": "odds_ratio",
+      "unit": "OR",
+      "reference_value": 0.968571,
+      "bgw_value": 0.968571,
+      "absolute_difference": 0.0,
+      "verified": true
+    }
+  ],
+  "size_scaling": [
+    {
+      "records_per_database": 1000,
+      "local_median_ms": 4.5498,
+      "mpc_median_ms": 0.323685,
+      "total_median_ms": 4.863252
+    },
+    {
+      "records_per_database": 5000,
+      "local_median_ms": 9.4932,
+      "mpc_median_ms": 0.310139,
+      "total_median_ms": 9.760483
+    },
+    {
+      "records_per_database": 10000,
+      "local_median_ms": 17.0032,
+      "mpc_median_ms": 0.29705,
+      "total_median_ms": 17.312986
+    },
+    {
+      "records_per_database": 25000,
+      "local_median_ms": 38.4268,
+      "mpc_median_ms": 0.297958,
+      "total_median_ms": 38.704623
+    }
+  ],
+  "analysis_comparison": [
+    {
+      "analysis": "VARIANT_FREQUENCY",
+      "label": "Variant Frequency",
+      "operations": "addition",
+      "secure_multiplications": 0,
+      "protocol_messages": 12,
+      "local_median_ms": 4.7436,
+      "mpc_median_ms": 0.311054,
+      "total_median_ms": 5.044458
+    },
+    {
+      "analysis": "ALLELE_FREQUENCY",
+      "label": "Allele Frequency",
+      "operations": "addition",
+      "secure_multiplications": 0,
+      "protocol_messages": 12,
+      "local_median_ms": 4.5586,
+      "mpc_median_ms": 0.329849,
+      "total_median_ms": 4.842849
+    },
+    {
+      "analysis": "COHORT_MEAN_AGE",
+      "label": "Cohort Mean Age",
+      "operations": "addition",
+      "secure_multiplications": 0,
+      "protocol_messages": 12,
+      "local_median_ms": 1.962,
+      "mpc_median_ms": 0.2976,
+      "total_median_ms": 2.267381
+    },
+    {
+      "analysis": "THERAPY_RESPONSE_RATE",
+      "label": "Therapy Response Rate",
+      "operations": "addition",
+      "secure_multiplications": 0,
+      "protocol_messages": 12,
+      "local_median_ms": 523.3382,
+      "mpc_median_ms": 0.311579,
+      "total_median_ms": 523.63608
+    },
+    {
+      "analysis": "THERAPY_RESPONSE",
+      "label": "Therapy Response",
+      "operations": "addition and multiplication",
+      "secure_multiplications": 2,
+      "protocol_messages": 36,
+      "local_median_ms": 741.0281,
+      "mpc_median_ms": 0.657753,
+      "total_median_ms": 741.676706
+    },
+    {
+      "analysis": "VARIANT_DISEASE_ASSOCIATION",
+      "label": "Variant-Disease Association",
+      "operations": "addition and multiplication",
+      "secure_multiplications": 2,
+      "protocol_messages": 36,
+      "local_median_ms": 13.9112,
+      "mpc_median_ms": 0.58479,
+      "total_median_ms": 14.641045
+    }
+  ],
+  "participant_scaling": [
+    {
+      "participant_count": 3,
+      "threshold": 1,
+      "records_per_database": 1000,
+      "variant_frequency_messages": 12,
+      "variant_frequency_mpc_median_ms": 0.341452,
+      "therapy_response_messages": 36,
+      "therapy_response_mpc_median_ms": 0.63426
+    },
+    {
+      "participant_count": 4,
+      "threshold": 1,
+      "records_per_database": 1000,
+      "variant_frequency_messages": 24,
+      "variant_frequency_mpc_median_ms": 0.642462,
+      "therapy_response_messages": 72,
+      "therapy_response_mpc_median_ms": 1.174138
+    },
+    {
+      "participant_count": 5,
+      "threshold": 2,
+      "records_per_database": 1000,
+      "variant_frequency_messages": 40,
+      "variant_frequency_mpc_median_ms": 1.09042,
+      "therapy_response_messages": 120,
+      "therapy_response_mpc_median_ms": 2.034236
+    },
+    {
+      "participant_count": 6,
+      "threshold": 2,
+      "records_per_database": 1000,
+      "variant_frequency_messages": 60,
+      "variant_frequency_mpc_median_ms": 1.619813,
+      "therapy_response_messages": 180,
+      "therapy_response_mpc_median_ms": 3.180192
+    }
+  ],
+  "participant_correctness": [
+    {
+      "participant_count": 3,
+      "threshold": 1,
+      "verified_analyses": 6,
+      "total_analyses": 6,
+      "max_absolute_difference": 0.0
+    },
+    {
+      "participant_count": 4,
+      "threshold": 1,
+      "verified_analyses": 6,
+      "total_analyses": 6,
+      "max_absolute_difference": 0.0
+    },
+    {
+      "participant_count": 5,
+      "threshold": 2,
+      "verified_analyses": 6,
+      "total_analyses": 6,
+      "max_absolute_difference": 0.0
+    },
+    {
+      "participant_count": 6,
+      "threshold": 2,
+      "verified_analyses": 6,
+      "total_analyses": 6,
+      "max_absolute_difference": 0.0
+    }
+  ],
+  "raw_cases": {
+    "scaling:1000": {
+      "local": {
+        "median_ms": 4.5498,
+        "min_ms": 4.185,
+        "max_ms": 6.16,
+        "p95_ms": 6.16,
+        "samples_ms": [
+          6.16,
+          4.1999,
+          4.5035,
+          5.2975,
+          5.1267,
+          4.3123,
+          4.8625,
+          4.5498,
+          4.185
+        ]
+      },
+      "mpc": {
+        "median_ms": 0.323685,
+        "min_ms": 0.257019,
+        "max_ms": 0.348734,
+        "p95_ms": 0.348734,
+        "samples_ms": [
+          0.31327,
+          0.332156,
+          0.346174,
+          0.257019,
+          0.258692,
+          0.348734,
+          0.323685,
+          0.313452,
+          0.333069
+        ]
+      },
+      "total": {
+        "median_ms": 4.863252,
+        "min_ms": 4.518069,
+        "max_ms": 6.47327,
+        "p95_ms": 6.47327,
+        "samples_ms": [
+          6.47327,
+          4.532056,
+          4.849674,
+          5.554519,
+          5.385392,
+          4.661034,
+          5.186185,
+          4.863252,
+          4.518069
+        ]
+      },
+      "local_inputs": [
+        {
+          "cohort_size": 1000,
+          "variant_count": 152
+        },
+        {
+          "cohort_size": 1000,
+          "variant_count": 189
+        },
+        {
+          "cohort_size": 1000,
+          "variant_count": 193
+        }
+      ],
+      "reference": {
+        "cohort_size": 3000,
+        "variant_count": 534,
+        "frequency_percent": 17.8
+      },
+      "bgw": {
+        "cohort_size": 3000,
+        "variant_count": 534,
+        "frequency_percent": 17.8
+      },
+      "differences": {
+        "cohort_size": 0.0,
+        "variant_count": 0.0,
+        "frequency_percent": 0.0
+      },
+      "verified": true
+    },
+    "analysis:VARIANT_FREQUENCY": {
+      "local": {
+        "median_ms": 4.7436,
+        "min_ms": 4.1817,
+        "max_ms": 6.3039,
+        "p95_ms": 6.3039,
+        "samples_ms": [
+          4.67,
+          4.1817,
+          4.1935,
+          4.7436,
+          6.3039,
+          5.3639,
+          5.3589,
+          5.3403,
+          4.2077
+        ]
+      },
+      "mpc": {
+        "median_ms": 0.311054,
+        "min_ms": 0.258054,
+        "max_ms": 0.352601,
+        "p95_ms": 0.352601,
+        "samples_ms": [
+          0.324299,
+          0.352601,
+          0.311054,
+          0.300858,
+          0.295861,
+          0.258054,
+          0.302124,
+          0.320453,
+          0.335036
+        ]
+      },
+      "total": {
+        "median_ms": 5.044458,
+        "min_ms": 4.504554,
+        "max_ms": 6.599761,
+        "p95_ms": 6.599761,
+        "samples_ms": [
+          4.994299,
+          4.534301,
+          4.504554,
+          5.044458,
+          6.599761,
+          5.621954,
+          5.661024,
+          5.660753,
+          4.542736
+        ]
+      },
+      "local_inputs": [
+        {
+          "cohort_size": 1000,
+          "variant_count": 152
+        },
+        {
+          "cohort_size": 1000,
+          "variant_count": 189
+        },
+        {
+          "cohort_size": 1000,
+          "variant_count": 193
+        }
+      ],
+      "reference": {
+        "cohort_size": 3000,
+        "variant_count": 534,
+        "frequency_percent": 17.8
+      },
+      "bgw": {
+        "cohort_size": 3000,
+        "variant_count": 534,
+        "frequency_percent": 17.8
+      },
+      "differences": {
+        "cohort_size": 0.0,
+        "variant_count": 0.0,
+        "frequency_percent": 0.0
+      },
+      "verified": true
+    },
+    "analysis:ALLELE_FREQUENCY": {
+      "local": {
+        "median_ms": 4.5586,
+        "min_ms": 3.8026,
+        "max_ms": 5.2802,
+        "p95_ms": 5.2802,
+        "samples_ms": [
+          4.513,
+          3.8026,
+          5.2178,
+          4.0376,
+          4.6135,
+          5.2802,
+          5.2446,
+          4.0584,
+          4.5586
+        ]
+      },
+      "mpc": {
+        "median_ms": 0.329849,
+        "min_ms": 0.255613,
+        "max_ms": 0.464105,
+        "p95_ms": 0.464105,
+        "samples_ms": [
+          0.329849,
+          0.255613,
+          0.304422,
+          0.306231,
+          0.363868,
+          0.421558,
+          0.464105,
+          0.389773,
+          0.266734
+        ]
+      },
+      "total": {
+        "median_ms": 4.842849,
+        "min_ms": 4.058213,
+        "max_ms": 5.708705,
+        "p95_ms": 5.708705,
+        "samples_ms": [
+          4.842849,
+          4.058213,
+          5.522222,
+          4.343831,
+          4.977368,
+          5.701758,
+          5.708705,
+          4.448173,
+          4.825334
+        ]
+      },
+      "local_inputs": [
+        {
+          "cohort_size": 1000,
+          "alternative_allele_count": 229
+        },
+        {
+          "cohort_size": 1000,
+          "alternative_allele_count": 283
+        },
+        {
+          "cohort_size": 1000,
+          "alternative_allele_count": 292
+        }
+      ],
+      "reference": {
+        "cohort_size": 3000,
+        "alternative_allele_count": 804,
+        "allele_frequency_percent": 13.4
+      },
+      "bgw": {
+        "cohort_size": 3000,
+        "alternative_allele_count": 804,
+        "allele_frequency_percent": 13.4
+      },
+      "differences": {
+        "cohort_size": 0.0,
+        "alternative_allele_count": 0.0,
+        "allele_frequency_percent": 0.0
+      },
+      "verified": true
+    },
+    "analysis:COHORT_MEAN_AGE": {
+      "local": {
+        "median_ms": 1.962,
+        "min_ms": 1.6621,
+        "max_ms": 2.6218,
+        "p95_ms": 2.6218,
+        "samples_ms": [
+          1.6621,
+          2.1416,
+          1.962,
+          1.9179,
+          2.6218,
+          2.2322,
+          2.071,
+          1.92,
+          1.9429
+        ]
+      },
+      "mpc": {
+        "median_ms": 0.2976,
+        "min_ms": 0.260199,
+        "max_ms": 0.351664,
+        "p95_ms": 0.351664,
+        "samples_ms": [
+          0.351664,
+          0.343284,
+          0.305381,
+          0.332627,
+          0.293474,
+          0.2976,
+          0.276282,
+          0.279052,
+          0.260199
+        ]
+      },
+      "total": {
+        "median_ms": 2.267381,
+        "min_ms": 2.013764,
+        "max_ms": 2.915274,
+        "p95_ms": 2.915274,
+        "samples_ms": [
+          2.013764,
+          2.484884,
+          2.267381,
+          2.250527,
+          2.915274,
+          2.5298,
+          2.347282,
+          2.199052,
+          2.203099
+        ]
+      },
+      "local_inputs": [
+        {
+          "cohort_size": 1000,
+          "age_sum": 55074
+        },
+        {
+          "cohort_size": 1000,
+          "age_sum": 55310
+        },
+        {
+          "cohort_size": 1000,
+          "age_sum": 55104
+        }
+      ],
+      "reference": {
+        "cohort_size": 3000,
+        "mean_age": 55.1627
+      },
+      "bgw": {
+        "cohort_size": 3000,
+        "mean_age": 55.1627
+      },
+      "differences": {
+        "cohort_size": 0.0,
+        "mean_age": 0.0
+      },
+      "verified": true
+    },
+    "analysis:THERAPY_RESPONSE_RATE": {
+      "local": {
+        "median_ms": 523.3382,
+        "min_ms": 483.0147,
+        "max_ms": 553.16,
+        "p95_ms": 553.16,
+        "samples_ms": [
+          502.5423,
+          553.16,
+          542.5303,
+          488.9876,
+          488.0728,
+          483.0147,
+          527.2542,
+          537.241,
+          523.3382
+        ]
+      },
+      "mpc": {
+        "median_ms": 0.311579,
+        "min_ms": 0.29788,
+        "max_ms": 0.362885,
+        "p95_ms": 0.362885,
+        "samples_ms": [
+          0.311765,
+          0.300514,
+          0.34344,
+          0.347828,
+          0.311579,
+          0.303885,
+          0.362885,
+          0.298732,
+          0.29788
+        ]
+      },
+      "total": {
+        "median_ms": 523.63608,
+        "min_ms": 483.318585,
+        "max_ms": 553.460514,
+        "p95_ms": 553.460514,
+        "samples_ms": [
+          502.854065,
+          553.460514,
+          542.87374,
+          489.335428,
+          488.384379,
+          483.318585,
+          527.617085,
+          537.539732,
+          523.63608
+        ]
+      },
+      "local_inputs": [
+        {
+          "cohort_size": 687,
+          "responder_count": 369
+        },
+        {
+          "cohort_size": 708,
+          "responder_count": 376
+        },
+        {
+          "cohort_size": 722,
+          "responder_count": 395
+        }
+      ],
+      "reference": {
+        "cohort_size": 2117,
+        "treated_count": 2117,
+        "responder_count": 1140,
+        "response_rate_percent": 53.8498
+      },
+      "bgw": {
+        "cohort_size": 2117,
+        "treated_count": 2117,
+        "responder_count": 1140,
+        "response_rate_percent": 53.8498
+      },
+      "differences": {
+        "cohort_size": 0.0,
+        "responder_count": 0.0,
+        "response_rate_percent": 0.0
+      },
+      "verified": true
+    },
+    "analysis:THERAPY_RESPONSE": {
+      "local": {
+        "median_ms": 741.0281,
+        "min_ms": 703.6218,
+        "max_ms": 776.8595,
+        "p95_ms": 776.8595,
+        "samples_ms": [
+          776.8595,
+          740.6159,
+          734.6834,
+          741.747,
+          703.6218,
+          772.1442,
+          717.1602,
+          742.4341,
+          741.0281
+        ]
+      },
+      "mpc": {
+        "median_ms": 0.657753,
+        "min_ms": 0.615332,
+        "max_ms": 0.703737,
+        "p95_ms": 0.703737,
+        "samples_ms": [
+          0.679078,
+          0.666869,
+          0.636615,
+          0.703737,
+          0.620442,
+          0.657753,
+          0.615332,
+          0.690162,
+          0.648606
+        ]
+      },
+      "total": {
+        "median_ms": 741.676706,
+        "min_ms": 704.242242,
+        "max_ms": 777.538578,
+        "p95_ms": 777.538578,
+        "samples_ms": [
+          777.538578,
+          741.282769,
+          735.320015,
+          742.450737,
+          704.242242,
+          772.801953,
+          717.775532,
+          743.124262,
+          741.676706
+        ]
+      },
+      "local_inputs": [
+        {
+          "cohort_size": 687,
+          "a": 80,
+          "b": 20,
+          "c": 289,
+          "d": 298
+        },
+        {
+          "cohort_size": 708,
+          "a": 96,
+          "b": 45,
+          "c": 280,
+          "d": 287
+        },
+        {
+          "cohort_size": 722,
+          "a": 102,
+          "b": 34,
+          "c": 293,
+          "d": 293
+        }
+      ],
+      "reference": {
+        "cohort_size": 2117,
+        "a": 278,
+        "b": 99,
+        "c": 862,
+        "d": 878,
+        "ad": 244084,
+        "bc": 85338,
+        "odds_ratio": 2.860203
+      },
+      "bgw": {
+        "cohort_size": 2117,
+        "odds_ratio": 2.860203
+      },
+      "differences": {
+        "cohort_size": 0.0,
+        "odds_ratio": 0.0
+      },
+      "verified": true
+    },
+    "analysis:VARIANT_DISEASE_ASSOCIATION": {
+      "local": {
+        "median_ms": 13.9112,
+        "min_ms": 12.6741,
+        "max_ms": 17.8146,
+        "p95_ms": 17.8146,
+        "samples_ms": [
+          16.31,
+          17.8146,
+          17.0117,
+          13.787,
+          13.8502,
+          13.9112,
+          12.6741,
+          15.914,
+          13.6206
+        ]
+      },
+      "mpc": {
+        "median_ms": 0.58479,
+        "min_ms": 0.56324,
+        "max_ms": 0.729845,
+        "p95_ms": 0.729845,
+        "samples_ms": [
+          0.641607,
+          0.574624,
+          0.58479,
+          0.56324,
+          0.571261,
+          0.729845,
+          0.571503,
+          0.622743,
+          0.662831
+        ]
+      },
+      "total": {
+        "median_ms": 14.641045,
+        "min_ms": 13.245603,
+        "max_ms": 18.389224,
+        "p95_ms": 18.389224,
+        "samples_ms": [
+          16.951607,
+          18.389224,
+          17.59649,
+          14.35024,
+          14.421461,
+          14.641045,
+          13.245603,
+          16.536743,
+          14.283431
+        ]
+      },
+      "local_inputs": [
+        {
+          "cohort_size": 1000,
+          "a": 90,
+          "b": 62,
+          "c": 602,
+          "d": 246
+        },
+        {
+          "cohort_size": 1000,
+          "a": 136,
+          "b": 53,
+          "c": 553,
+          "d": 258
+        },
+        {
+          "cohort_size": 1000,
+          "a": 131,
+          "b": 62,
+          "c": 530,
+          "d": 277
+        }
+      ],
+      "reference": {
+        "cohort_size": 3000,
+        "a": 357,
+        "b": 177,
+        "c": 1685,
+        "d": 781,
+        "ad": 278817,
+        "bc": 298245,
+        "odds_ratio": 0.934859
+      },
+      "bgw": {
+        "cohort_size": 3000,
+        "odds_ratio": 0.934859
+      },
+      "differences": {
+        "cohort_size": 0.0,
+        "odds_ratio": 0.0
+      },
+      "verified": true
+    },
+    "participants:n3:VARIANT_FREQUENCY": {
+      "mpc": {
+        "median_ms": 0.341452,
+        "min_ms": 0.262668,
+        "max_ms": 0.361962,
+        "p95_ms": 0.361962,
+        "samples_ms": [
+          0.343649,
+          0.334641,
+          0.354589,
+          0.315824,
+          0.262668,
+          0.361962,
+          0.356764,
+          0.341452,
+          0.313124
+        ]
+      },
+      "local_inputs": [
+        {
+          "cohort_size": 1000,
+          "variant_count": 152
+        },
+        {
+          "cohort_size": 1000,
+          "variant_count": 189
+        },
+        {
+          "cohort_size": 1000,
+          "variant_count": 193
+        }
+      ],
+      "reference": {
+        "cohort_size": 3000,
+        "variant_count": 534,
+        "frequency_percent": 17.8
+      },
+      "bgw": {
+        "cohort_size": 3000,
+        "variant_count": 534,
+        "frequency_percent": 17.8
+      },
+      "differences": {
+        "cohort_size": 0.0,
+        "variant_count": 0.0,
+        "frequency_percent": 0.0
+      },
+      "verified": true
+    },
+    "participants:n3:THERAPY_RESPONSE": {
+      "mpc": {
+        "median_ms": 0.63426,
+        "min_ms": 0.568695,
+        "max_ms": 0.771276,
+        "p95_ms": 0.771276,
+        "samples_ms": [
+          0.613977,
+          0.63426,
+          0.577671,
+          0.568695,
+          0.678576,
+          0.619825,
+          0.732873,
+          0.771276,
+          0.647022
+        ]
+      },
+      "local_inputs": [
+        {
+          "cohort_size": 687,
+          "a": 80,
+          "b": 20,
+          "c": 289,
+          "d": 298
+        },
+        {
+          "cohort_size": 708,
+          "a": 96,
+          "b": 45,
+          "c": 280,
+          "d": 287
+        },
+        {
+          "cohort_size": 722,
+          "a": 102,
+          "b": 34,
+          "c": 293,
+          "d": 293
+        }
+      ],
+      "reference": {
+        "cohort_size": 2117,
+        "a": 278,
+        "b": 99,
+        "c": 862,
+        "d": 878,
+        "ad": 244084,
+        "bc": 85338,
+        "odds_ratio": 2.860203
+      },
+      "bgw": {
+        "cohort_size": 2117,
+        "odds_ratio": 2.860203
+      },
+      "differences": {
+        "cohort_size": 0.0,
+        "odds_ratio": 0.0
+      },
+      "verified": true
+    },
+    "participants:n4:VARIANT_FREQUENCY": {
+      "mpc": {
+        "median_ms": 0.642462,
+        "min_ms": 0.540877,
+        "max_ms": 0.725696,
+        "p95_ms": 0.725696,
+        "samples_ms": [
+          0.642462,
+          0.676694,
+          0.665217,
+          0.637678,
+          0.72482,
+          0.725696,
+          0.638753,
+          0.540877,
+          0.598437
+        ]
+      },
+      "local_inputs": [
+        {
+          "cohort_size": 1000,
+          "variant_count": 152
+        },
+        {
+          "cohort_size": 1000,
+          "variant_count": 189
+        },
+        {
+          "cohort_size": 1000,
+          "variant_count": 193
+        },
+        {
+          "cohort_size": 1000,
+          "variant_count": 250
+        }
+      ],
+      "reference": {
+        "cohort_size": 4000,
+        "variant_count": 784,
+        "frequency_percent": 19.6
+      },
+      "bgw": {
+        "cohort_size": 4000,
+        "variant_count": 784,
+        "frequency_percent": 19.6
+      },
+      "differences": {
+        "cohort_size": 0.0,
+        "variant_count": 0.0,
+        "frequency_percent": 0.0
+      },
+      "verified": true
+    },
+    "participants:n4:THERAPY_RESPONSE": {
+      "mpc": {
+        "median_ms": 1.174138,
+        "min_ms": 0.989433,
+        "max_ms": 1.349359,
+        "p95_ms": 1.349359,
+        "samples_ms": [
+          1.107336,
+          1.219142,
+          1.221922,
+          1.147048,
+          1.190845,
+          1.174138,
+          0.989433,
+          1.349359,
+          1.156333
+        ]
+      },
+      "local_inputs": [
+        {
+          "cohort_size": 687,
+          "a": 80,
+          "b": 20,
+          "c": 289,
+          "d": 298
+        },
+        {
+          "cohort_size": 708,
+          "a": 96,
+          "b": 45,
+          "c": 280,
+          "d": 287
+        },
+        {
+          "cohort_size": 722,
+          "a": 102,
+          "b": 34,
+          "c": 293,
+          "d": 293
+        },
+        {
+          "cohort_size": 747,
+          "a": 147,
+          "b": 43,
+          "c": 273,
+          "d": 284
+        }
+      ],
+      "reference": {
+        "cohort_size": 2864,
+        "a": 425,
+        "b": 142,
+        "c": 1135,
+        "d": 1162,
+        "ad": 493850,
+        "bc": 161170,
+        "odds_ratio": 3.064156
+      },
+      "bgw": {
+        "cohort_size": 2864,
+        "odds_ratio": 3.064156
+      },
+      "differences": {
+        "cohort_size": 0.0,
+        "odds_ratio": 0.0
+      },
+      "verified": true
+    },
+    "participants:n5:VARIANT_FREQUENCY": {
+      "mpc": {
+        "median_ms": 1.09042,
+        "min_ms": 0.999946,
+        "max_ms": 1.231518,
+        "p95_ms": 1.231518,
+        "samples_ms": [
+          1.070323,
+          1.088762,
+          1.101839,
+          1.231518,
+          1.135125,
+          0.999946,
+          1.093449,
+          1.063854,
+          1.09042
+        ]
+      },
+      "local_inputs": [
+        {
+          "cohort_size": 1000,
+          "variant_count": 152
+        },
+        {
+          "cohort_size": 1000,
+          "variant_count": 189
+        },
+        {
+          "cohort_size": 1000,
+          "variant_count": 193
+        },
+        {
+          "cohort_size": 1000,
+          "variant_count": 250
+        },
+        {
+          "cohort_size": 1000,
+          "variant_count": 254
+        }
+      ],
+      "reference": {
+        "cohort_size": 5000,
+        "variant_count": 1038,
+        "frequency_percent": 20.76
+      },
+      "bgw": {
+        "cohort_size": 5000,
+        "variant_count": 1038,
+        "frequency_percent": 20.76
+      },
+      "differences": {
+        "cohort_size": 0.0,
+        "variant_count": 0.0,
+        "frequency_percent": 0.0
+      },
+      "verified": true
+    },
+    "participants:n5:THERAPY_RESPONSE": {
+      "mpc": {
+        "median_ms": 2.034236,
+        "min_ms": 1.775068,
+        "max_ms": 2.36204,
+        "p95_ms": 2.36204,
+        "samples_ms": [
+          1.957354,
+          2.187011,
+          1.775068,
+          1.806759,
+          1.984433,
+          2.162793,
+          2.034236,
+          2.051689,
+          2.36204
+        ]
+      },
+      "local_inputs": [
+        {
+          "cohort_size": 687,
+          "a": 80,
+          "b": 20,
+          "c": 289,
+          "d": 298
+        },
+        {
+          "cohort_size": 708,
+          "a": 96,
+          "b": 45,
+          "c": 280,
+          "d": 287
+        },
+        {
+          "cohort_size": 722,
+          "a": 102,
+          "b": 34,
+          "c": 293,
+          "d": 293
+        },
+        {
+          "cohort_size": 747,
+          "a": 147,
+          "b": 43,
+          "c": 273,
+          "d": 284
+        },
+        {
+          "cohort_size": 705,
+          "a": 118,
+          "b": 57,
+          "c": 256,
+          "d": 274
+        }
+      ],
+      "reference": {
+        "cohort_size": 3569,
+        "a": 543,
+        "b": 199,
+        "c": 1391,
+        "d": 1436,
+        "ad": 779748,
+        "bc": 276809,
+        "odds_ratio": 2.816917
+      },
+      "bgw": {
+        "cohort_size": 3569,
+        "odds_ratio": 2.816917
+      },
+      "differences": {
+        "cohort_size": 0.0,
+        "odds_ratio": 0.0
+      },
+      "verified": true
+    },
+    "participants:n6:VARIANT_FREQUENCY": {
+      "mpc": {
+        "median_ms": 1.619813,
+        "min_ms": 1.475418,
+        "max_ms": 2.040092,
+        "p95_ms": 2.040092,
+        "samples_ms": [
+          1.637809,
+          2.040092,
+          1.61279,
+          1.54718,
+          1.537377,
+          1.619813,
+          1.735628,
+          1.475418,
+          1.6397
+        ]
+      },
+      "local_inputs": [
+        {
+          "cohort_size": 1000,
+          "variant_count": 152
+        },
+        {
+          "cohort_size": 1000,
+          "variant_count": 189
+        },
+        {
+          "cohort_size": 1000,
+          "variant_count": 193
+        },
+        {
+          "cohort_size": 1000,
+          "variant_count": 250
+        },
+        {
+          "cohort_size": 1000,
+          "variant_count": 254
+        },
+        {
+          "cohort_size": 1000,
+          "variant_count": 294
+        }
+      ],
+      "reference": {
+        "cohort_size": 6000,
+        "variant_count": 1332,
+        "frequency_percent": 22.2
+      },
+      "bgw": {
+        "cohort_size": 6000,
+        "variant_count": 1332,
+        "frequency_percent": 22.2
+      },
+      "differences": {
+        "cohort_size": 0.0,
+        "variant_count": 0.0,
+        "frequency_percent": 0.0
+      },
+      "verified": true
+    },
+    "participants:n6:THERAPY_RESPONSE": {
+      "mpc": {
+        "median_ms": 3.180192,
+        "min_ms": 2.666333,
+        "max_ms": 3.622119,
+        "p95_ms": 3.622119,
+        "samples_ms": [
+          2.666333,
+          3.622119,
+          3.526704,
+          3.447659,
+          3.392466,
+          2.956164,
+          2.9192,
+          3.117834,
+          3.180192
+        ]
+      },
+      "local_inputs": [
+        {
+          "cohort_size": 687,
+          "a": 80,
+          "b": 20,
+          "c": 289,
+          "d": 298
+        },
+        {
+          "cohort_size": 708,
+          "a": 96,
+          "b": 45,
+          "c": 280,
+          "d": 287
+        },
+        {
+          "cohort_size": 722,
+          "a": 102,
+          "b": 34,
+          "c": 293,
+          "d": 293
+        },
+        {
+          "cohort_size": 747,
+          "a": 147,
+          "b": 43,
+          "c": 273,
+          "d": 284
+        },
+        {
+          "cohort_size": 705,
+          "a": 118,
+          "b": 57,
+          "c": 256,
+          "d": 274
+        },
+        {
+          "cohort_size": 703,
+          "a": 154,
+          "b": 43,
+          "c": 243,
+          "d": 263
+        }
+      ],
+      "reference": {
+        "cohort_size": 4272,
+        "a": 697,
+        "b": 242,
+        "c": 1634,
+        "d": 1699,
+        "ad": 1184203,
+        "bc": 395428,
+        "odds_ratio": 2.994737
+      },
+      "bgw": {
+        "cohort_size": 4272,
+        "odds_ratio": 2.994737
+      },
+      "differences": {
+        "cohort_size": 0.0,
+        "odds_ratio": 0.0
+      },
+      "verified": true
+    },
+    "scaling:5000": {
+      "local": {
+        "median_ms": 9.4932,
+        "min_ms": 9.1499,
+        "max_ms": 18.1183,
+        "p95_ms": 18.1183,
+        "samples_ms": [
+          10.829,
+          9.4932,
+          9.1499,
+          9.1818,
+          9.4722,
+          9.2883,
+          16.7743,
+          14.5128,
+          18.1183
+        ]
+      },
+      "mpc": {
+        "median_ms": 0.310139,
+        "min_ms": 0.267283,
+        "max_ms": 0.626293,
+        "p95_ms": 0.626293,
+        "samples_ms": [
+          0.309671,
+          0.267283,
+          0.267776,
+          0.353871,
+          0.268682,
+          0.340201,
+          0.626293,
+          0.54777,
+          0.310139
+        ]
+      },
+      "total": {
+        "median_ms": 9.760483,
+        "min_ms": 9.417676,
+        "max_ms": 18.428439,
+        "p95_ms": 18.428439,
+        "samples_ms": [
+          11.138671,
+          9.760483,
+          9.417676,
+          9.535671,
+          9.740882,
+          9.628501,
+          17.400593,
+          15.06057,
+          18.428439
+        ]
+      },
+      "local_inputs": [
+        {
+          "cohort_size": 5000,
+          "variant_count": 817
+        },
+        {
+          "cohort_size": 5000,
+          "variant_count": 927
+        },
+        {
+          "cohort_size": 5000,
+          "variant_count": 1071
+        }
+      ],
+      "reference": {
+        "cohort_size": 15000,
+        "variant_count": 2815,
+        "frequency_percent": 18.7667
+      },
+      "bgw": {
+        "cohort_size": 15000,
+        "variant_count": 2815,
+        "frequency_percent": 18.7667
+      },
+      "differences": {
+        "cohort_size": 0.0,
+        "variant_count": 0.0,
+        "frequency_percent": 0.0
+      },
+      "verified": true
+    },
+    "scaling:10000": {
+      "local": {
+        "median_ms": 17.0032,
+        "min_ms": 16.0399,
+        "max_ms": 18.1474,
+        "p95_ms": 18.1474,
+        "samples_ms": [
+          17.3077,
+          17.7478,
+          16.0399,
+          16.5153,
+          16.7622,
+          17.0032,
+          18.1474,
+          16.123,
+          17.679
+        ]
+      },
+      "mpc": {
+        "median_ms": 0.29705,
+        "min_ms": 0.259169,
+        "max_ms": 0.336029,
+        "p95_ms": 0.336029,
+        "samples_ms": [
+          0.310545,
+          0.259169,
+          0.310563,
+          0.290827,
+          0.336029,
+          0.309786,
+          0.27589,
+          0.29705,
+          0.269511
+        ]
+      },
+      "total": {
+        "median_ms": 17.312986,
+        "min_ms": 16.350463,
+        "max_ms": 18.42329,
+        "p95_ms": 18.42329,
+        "samples_ms": [
+          17.618245,
+          18.006969,
+          16.350463,
+          16.806127,
+          17.098229,
+          17.312986,
+          18.42329,
+          16.42005,
+          17.948511
+        ]
+      },
+      "local_inputs": [
+        {
+          "cohort_size": 10000,
+          "variant_count": 1616
+        },
+        {
+          "cohort_size": 10000,
+          "variant_count": 1827
+        },
+        {
+          "cohort_size": 10000,
+          "variant_count": 2176
+        }
+      ],
+      "reference": {
+        "cohort_size": 30000,
+        "variant_count": 5619,
+        "frequency_percent": 18.73
+      },
+      "bgw": {
+        "cohort_size": 30000,
+        "variant_count": 5619,
+        "frequency_percent": 18.73
+      },
+      "differences": {
+        "cohort_size": 0.0,
+        "variant_count": 0.0,
+        "frequency_percent": 0.0
+      },
+      "verified": true
+    },
+    "scaling:25000": {
+      "local": {
+        "median_ms": 38.4268,
+        "min_ms": 35.7123,
+        "max_ms": 42.1298,
+        "p95_ms": 42.1298,
+        "samples_ms": [
+          38.4047,
+          38.9092,
+          42.1298,
+          36.7832,
+          38.4268,
+          35.7123,
+          42.1115,
+          40.2148,
+          36.6498
+        ]
+      },
+      "mpc": {
+        "median_ms": 0.297958,
+        "min_ms": 0.263846,
+        "max_ms": 0.351306,
+        "p95_ms": 0.351306,
+        "samples_ms": [
+          0.299923,
+          0.351306,
+          0.309557,
+          0.294944,
+          0.264058,
+          0.273977,
+          0.297958,
+          0.263846,
+          0.335399
+        ]
+      },
+      "total": {
+        "median_ms": 38.704623,
+        "min_ms": 35.986277,
+        "max_ms": 42.439357,
+        "p95_ms": 42.439357,
+        "samples_ms": [
+          38.704623,
+          39.260506,
+          42.439357,
+          37.078144,
+          38.690858,
+          35.986277,
+          42.409458,
+          40.478646,
+          36.985199
+        ]
+      },
+      "local_inputs": [
+        {
+          "cohort_size": 25000,
+          "variant_count": 4042
+        },
+        {
+          "cohort_size": 25000,
+          "variant_count": 4541
+        },
+        {
+          "cohort_size": 25000,
+          "variant_count": 5337
+        }
+      ],
+      "reference": {
+        "cohort_size": 75000,
+        "variant_count": 13920,
+        "frequency_percent": 18.56
+      },
+      "bgw": {
+        "cohort_size": 75000,
+        "variant_count": 13920,
+        "frequency_percent": 18.56
+      },
+      "differences": {
+        "cohort_size": 0.0,
+        "variant_count": 0.0,
+        "frequency_percent": 0.0
+      },
+      "verified": true
+    }
+  }
+}

@@ -1,0 +1,7 @@
+analysis,label,operations,secure_multiplications,protocol_messages,local_median_ms,mpc_median_ms,total_median_ms
+VARIANT_FREQUENCY,Variant Frequency,addition,0,12,4.7436,0.311054,5.044458
+ALLELE_FREQUENCY,Allele Frequency,addition,0,12,4.5586,0.329849,4.842849
+COHORT_MEAN_AGE,Cohort Mean Age,addition,0,12,1.962,0.2976,2.267381
+THERAPY_RESPONSE_RATE,Therapy Response Rate,addition,0,12,523.3382,0.311579,523.63608
+THERAPY_RESPONSE,Therapy Response,addition and multiplication,2,36,741.0281,0.657753,741.676706
+VARIANT_DISEASE_ASSOCIATION,Variant-Disease Association,addition and multiplication,2,36,13.9112,0.58479,14.641045

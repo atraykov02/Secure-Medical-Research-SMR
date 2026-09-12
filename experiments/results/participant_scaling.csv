@@ -1,0 +1,5 @@
+participant_count,threshold,records_per_database,variant_frequency_messages,variant_frequency_mpc_median_ms,therapy_response_messages,therapy_response_mpc_median_ms
+3,1,1000,12,0.341452,36,0.63426
+4,1,1000,24,0.642462,72,1.174138
+5,2,1000,40,1.09042,120,2.034236
+6,2,1000,60,1.619813,180,3.180192
