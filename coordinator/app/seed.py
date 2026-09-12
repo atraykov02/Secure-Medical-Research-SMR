@@ -16,6 +16,8 @@ DEFAULT_ORGANIZATIONS = [
     ("УМБАЛ Канев - Русе", 6, "http://hospital-f:8000"),
 ]
 
+DEMO_EMAIL_DOMAIN = "smr.com"
+
 
 def seed_demo_data(db: Session) -> None:
     existing_orgs = {
@@ -36,17 +38,18 @@ def seed_demo_data(db: Session) -> None:
         orgs.append(org)
     db.flush()
 
-    if not db.scalar(select(User.id).where(User.email == "researcher@precisionmpc.example.com")):
+    researcher_email = f"researcher@{DEMO_EMAIL_DOMAIN}"
+    if not db.scalar(select(User.id).where(User.email == researcher_email)):
         db.add(User(
             organization_id=orgs[0].id,
-            email="researcher@precisionmpc.example.com",
+            email=researcher_email,
             password_hash=hash_password("Research123!"),
             first_name="Demo",
             last_name="Researcher",
             role=UserRole.RESEARCHER,
         ))
     for idx, org in enumerate(orgs, start=1):
-        email = f"admin{idx}@precisionmpc.example.com"
+        email = f"admin{idx}@{DEMO_EMAIL_DOMAIN}"
         if not db.scalar(select(User.id).where(User.email == email)):
             db.add(User(
                 organization_id=org.id,
@@ -56,9 +59,10 @@ def seed_demo_data(db: Session) -> None:
                 last_name="Admin",
                 role=UserRole.ORG_ADMIN,
             ))
-    if not db.scalar(select(User.id).where(User.email == "system@precisionmpc.example.com")):
+    system_email = f"system@{DEMO_EMAIL_DOMAIN}"
+    if not db.scalar(select(User.id).where(User.email == system_email)):
         db.add(User(
-            email="system@precisionmpc.example.com",
+            email=system_email,
             password_hash=hash_password("System123!"),
             first_name="System",
             last_name="Administrator",

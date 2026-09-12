@@ -103,7 +103,7 @@ def create_variant_study(client: TestClient, researcher_token: str, study_mode: 
 
 def approve_all(client: TestClient, study_id: str) -> None:
     for idx in (1, 2, 3):
-        token = login(client, f"admin{idx}@precisionmpc.example.com", "Admin123!")
+        token = login(client, f"admin{idx}@smr.com", "Admin123!")
         response = client.post(
             f"/api/studies/{study_id}/approval",
             json={"approve": True},
@@ -116,7 +116,7 @@ def approve_all(client: TestClient, study_id: str) -> None:
 def test_full_study_workflow(tmp_path: Path):
     client, fake = make_client(tmp_path)
     with client:
-        researcher = login(client, "researcher@precisionmpc.example.com", "Research123!")
+        researcher = login(client, "researcher@smr.com", "Research123!")
         me = client.get("/api/auth/me", headers=auth(researcher))
         assert me.status_code == 200
         assert me.json()["role"] == "RESEARCHER"
@@ -150,7 +150,7 @@ def test_full_study_workflow(tmp_path: Path):
 def test_failed_mpc_execution_can_be_retried_after_nodes_recover(tmp_path: Path):
     client, fake = make_client(tmp_path)
     with client:
-        researcher = login(client, "researcher@precisionmpc.example.com", "Research123!")
+        researcher = login(client, "researcher@smr.com", "Research123!")
         study = create_variant_study(client, researcher)
         approve_all(client, study["id"])
 
@@ -175,7 +175,7 @@ def test_failed_mpc_execution_can_be_retried_after_nodes_recover(tmp_path: Path)
 def test_researcher_cannot_approve_hospital_participation(tmp_path: Path):
     client, _ = make_client(tmp_path)
     with client:
-        researcher = login(client, "researcher@precisionmpc.example.com", "Research123!")
+        researcher = login(client, "researcher@smr.com", "Research123!")
         study = create_variant_study(client, researcher)
         response = client.post(
             f"/api/studies/{study['id']}/approval",
@@ -188,22 +188,22 @@ def test_researcher_cannot_approve_hospital_participation(tmp_path: Path):
 def test_only_org_admin_receives_hospital_local_access_token(tmp_path: Path):
     client, _ = make_client(tmp_path)
     with client:
-        admin = login(client, "admin1@precisionmpc.example.com", "Admin123!")
+        admin = login(client, "admin1@smr.com", "Admin123!")
         allowed = client.get("/api/organizations/me/local-access", headers=auth(admin))
         assert allowed.status_code == 200, allowed.text
         assert allowed.json()["organization"]["name"] == "УМБАЛ Св. Иван Рилски - София"
         assert allowed.json()["node_url"] == "http://localhost:8101"
 
-        researcher = login(client, "researcher@precisionmpc.example.com", "Research123!")
+        researcher = login(client, "researcher@smr.com", "Research123!")
         assert client.get("/api/organizations/me/local-access", headers=auth(researcher)).status_code == 403
-        system_admin = login(client, "system@precisionmpc.example.com", "System123!")
+        system_admin = login(client, "system@smr.com", "System123!")
         assert client.get("/api/organizations/me/local-access", headers=auth(system_admin)).status_code == 403
 
 
 def test_invalid_hospital_node_port_is_rejected(tmp_path: Path):
     client, _ = make_client(tmp_path)
     with client:
-        system = login(client, "system@precisionmpc.example.com", "System123!")
+        system = login(client, "system@smr.com", "System123!")
         organization = client.get("/api/organizations", headers=auth(system)).json()[0]
         response = client.patch(
             f"/api/organizations/{organization['id']}",
@@ -230,7 +230,7 @@ def test_system_admin_registers_verifies_and_activates_existing_node(tmp_path: P
     monkeypatch.setattr("coordinator.app.routers.organizations.httpx.get", fake_get)
     client, _ = make_client(tmp_path)
     with client:
-        system = login(client, "system@precisionmpc.example.com", "System123!")
+        system = login(client, "system@smr.com", "System123!")
         created = client.post("/api/organizations", headers=auth(system), json={
             "name": "New Hospital",
             "type": "HOSPITAL",
@@ -259,7 +259,7 @@ def test_small_cohort_result_is_suppressed(tmp_path: Path):
     result = {"cohort_size": 5, "variant_count": 2, "frequency_percent": 40.0}
     client, _ = make_client(tmp_path, result=result, minimum_cohort_size=10)
     with client:
-        researcher = login(client, "researcher@precisionmpc.example.com", "Research123!")
+        researcher = login(client, "researcher@smr.com", "Research123!")
         study = create_variant_study(client, researcher)
         approve_all(client, study["id"])
         run = client.post(f"/api/studies/{study['id']}/run", headers=auth(researcher))
@@ -297,7 +297,7 @@ def test_therapy_response_public_result_does_not_persist_cross_products(tmp_path
     result = {"cohort_size": 240, "odds_ratio": 1.75}
     client, _ = make_client(tmp_path, result=result)
     with client:
-        researcher = login(client, "researcher@precisionmpc.example.com", "Research123!")
+        researcher = login(client, "researcher@smr.com", "Research123!")
         study = create_therapy_study(client, researcher)
         approve_all(client, study["id"])
         run = client.post(f"/api/studies/{study['id']}/run", headers=auth(researcher))
@@ -310,7 +310,7 @@ def test_therapy_response_public_result_does_not_persist_cross_products(tmp_path
 def test_demonstration_variant_verification_matches_bgw(tmp_path: Path):
     client, _ = make_client(tmp_path)
     with client:
-        researcher = login(client, "researcher@precisionmpc.example.com", "Research123!")
+        researcher = login(client, "researcher@smr.com", "Research123!")
         study = create_variant_study(client, researcher, "DEMONSTRATION")
         approve_all(client, study["id"])
         assert client.post(f"/api/studies/{study['id']}/run", headers=auth(researcher)).status_code == 200
@@ -322,14 +322,14 @@ def test_demonstration_variant_verification_matches_bgw(tmp_path: Path):
         assert "local_breakdown" not in stored_study
         assert stored_study["result"] == verification.json()["bgw"]
 
-        hospital_admin = login(client, "admin1@precisionmpc.example.com", "Admin123!")
+        hospital_admin = login(client, "admin1@smr.com", "Admin123!")
         assert client.post(f"/api/studies/{study['id']}/verify", headers=auth(hospital_admin)).status_code == 403
 
 
 def test_secure_study_cannot_use_plaintext_verification(tmp_path: Path):
     client, _ = make_client(tmp_path)
     with client:
-        researcher = login(client, "researcher@precisionmpc.example.com", "Research123!")
+        researcher = login(client, "researcher@smr.com", "Research123!")
         study = create_variant_study(client, researcher)
         approve_all(client, study["id"])
         client.post(f"/api/studies/{study['id']}/run", headers=auth(researcher))
@@ -343,7 +343,7 @@ def test_suppressed_demonstration_result_cannot_expose_plaintext(tmp_path: Path)
         minimum_cohort_size=10,
     )
     with client:
-        researcher = login(client, "researcher@precisionmpc.example.com", "Research123!")
+        researcher = login(client, "researcher@smr.com", "Research123!")
         study = create_variant_study(client, researcher, "DEMONSTRATION")
         approve_all(client, study["id"])
         client.post(f"/api/studies/{study['id']}/run", headers=auth(researcher))
@@ -353,7 +353,7 @@ def test_suppressed_demonstration_result_cannot_expose_plaintext(tmp_path: Path)
 def test_demonstration_therapy_verification_matches_bgw(tmp_path: Path):
     client, _ = make_client(tmp_path, result={"cohort_size": 12, "odds_ratio": 1.75})
     with client:
-        researcher = login(client, "researcher@precisionmpc.example.com", "Research123!")
+        researcher = login(client, "researcher@smr.com", "Research123!")
         study = create_therapy_study(client, researcher, "DEMONSTRATION")
         approve_all(client, study["id"])
         client.post(f"/api/studies/{study['id']}/run", headers=auth(researcher))
@@ -367,9 +367,9 @@ def test_demonstration_therapy_verification_matches_bgw(tmp_path: Path):
 def test_org_admin_only_lists_participating_studies(tmp_path: Path):
     client, _ = make_client(tmp_path)
     with client:
-        researcher = login(client, "researcher@precisionmpc.example.com", "Research123!")
+        researcher = login(client, "researcher@smr.com", "Research123!")
         study = create_variant_study(client, researcher)
-        admin1 = login(client, "admin1@precisionmpc.example.com", "Admin123!")
+        admin1 = login(client, "admin1@smr.com", "Admin123!")
         studies = client.get("/api/studies", headers=auth(admin1))
         assert studies.status_code == 200
         assert [item["id"] for item in studies.json()] == [study["id"]]
@@ -393,7 +393,7 @@ def test_public_registration_creates_researcher(tmp_path: Path):
 def test_study_can_include_all_six_registered_organizations(tmp_path: Path):
     client, _ = make_client(tmp_path)
     with client:
-        system = login(client, "system@precisionmpc.example.com", "System123!")
+        system = login(client, "system@smr.com", "System123!")
         orgs = client.get("/api/organizations", headers=auth(system)).json()
         assert len(orgs) == 6
 

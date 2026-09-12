@@ -8,8 +8,8 @@ import Spinner from '../components/Spinner.vue'
 import { toast } from '../stores/toast'
 import logoUrl from '../components/logo.png'
 
-const email = ref('researcher@precisionmpc.example.com')
-const password = ref('Research123!')
+const email = ref('')
+const password = ref('')
 const busy = ref(false), error = ref('')
 const a = useAuthStore(), router = useRouter()
 

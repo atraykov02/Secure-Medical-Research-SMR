@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import { Building2, ChevronDown, ChevronLeft, ChevronRight, Database, Pencil, Plus, RotateCcw, Search, ShieldCheck, SlidersHorizontal, Trash2, X } from 'lucide-vue-next'
 import { onMounted, reactive, ref } from 'vue'
-import { PageHead, StatusBadge } from '../components/Ui.vue'
-import Spinner from '../components/Spinner.vue'
-import { createLocalCatalogItem, createLocalPatient, deleteLocalCatalogItem, deleteLocalPatient, getLocalMedicalCatalog, getLocalPatient, getLocalPatients, hospitalAccess, updateLocalCatalogItem, updateLocalPatient } from '../localNode'
-import type { HospitalAccess, LocalMedicalCatalog, LocalPatients, LocalPatientWrite } from '../types'
-import { Building2, Database, ShieldCheck, ChevronLeft, ChevronRight, Search, SlidersHorizontal, RotateCcw, ChevronDown, Plus, Pencil, Trash2, X } from 'lucide-vue-next'
-import { toast } from '../stores/toast'
 import { errorText } from '../api'
+import Spinner from '../components/Spinner.vue'
+import { PageHead, StatusBadge } from '../components/Ui.vue'
+import { createLocalCatalogItem, createLocalPatient, deleteLocalCatalogItem, deleteLocalPatient, getLocalMedicalCatalog, getLocalPatient, getLocalPatients, hospitalAccess, updateLocalCatalogItem, updateLocalPatient } from '../localNode'
+import { toast } from '../stores/toast'
+import type { HospitalAccess, LocalMedicalCatalog, LocalPatients, LocalPatientWrite } from '../types'
 
 const access = ref<HospitalAccess>()
 const patients = ref<LocalPatients>()
@@ -255,7 +255,7 @@ async function confirmPatientRemoval() {
 
       <section class="panel overflow-hidden">
         <header class="flex flex-col gap-3 border-b border-line px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
-          <div><h2 class="section-title">Синтетични медицински данни</h2><p class="mt-1 text-xs text-mist">Съхраняват се локално в {{ patients.organization }} · Не се предават към централния coordinator</p></div>
+          <div><h2 class="section-title">Синтетични медицински данни</h2><p class="mt-1 text-xs text-mist">Съхраняват се локално в {{ patients.organization }} · Не се предават към централния координатор</p></div>
           <div class="flex items-center gap-2">
             <span class="rounded-full bg-pine-50 px-3 py-1.5 text-xs font-semibold text-pine-700">Локално хранилище</span>
             <button type="button" class="btn-primary" @click="openCreatePatient"><Plus :size="16" /> Добави пациент</button>
