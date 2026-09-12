@@ -6,15 +6,15 @@
 
 ```text
 Secure-Medical-Research-SMR/
-├── bgw/                         # BGW протокол, Shamir споделяне и транспорт
+├── bgw/                         # BGW протокол, споделяне на дялове с Shamir и обмен на информация
 ├── coordinator/                 # Централен FastAPI координатор
 ├── hospital_node/               # FastAPI възел на медицинска организация
 ├── frontend/                    # Vue 3 и TypeScript интерфейс
-├── experiments/                 # Benchmark сценарии и резултати
+├── experiments/                 # Експерименти с данните и резултати
 ├── tests/                       # Автоматизирани тестове
 ├── docker-compose.backend.yml   # Конфигурация на цялата система
 ├── requirements.txt             # Python зависимости
-└── README.md                    # Документация на проекта
+└── README.md                    # Ръководство за инсталация на проекта
 ```
 
 ## Изисквания
@@ -46,7 +46,6 @@ docker compose -f docker-compose.backend.yml ps
 
 - потребителски интерфейс: <http://localhost:5174>;
 - Coordinator API: <http://localhost:8000>;
-
 
 ## Спиране на системата
 
@@ -88,17 +87,17 @@ python -m pip install -r requirements.txt
 python -m pytest -q
 ```
 
-Стартиране на benchmark експериментите:
+Стартиране на експериментите с данните:
 
 ```bash
 python -m experiments.run_benchmarks
 ```
 
-Резултатите се записват като JSON и CSV файлове в `experiments/results/`.
+Резултатите се записват като JSON и CSV файлове в папка `experiments/results/`.
 
-## Локално стартиране на frontend
+## Локално стартиране на frontend частта
 
-Необходими са Node.js 22 и npm. Coordinator API трябва вече да работи на `http://localhost:8000`.
+Необходими са Node.js 22 и npm. Координатор API трябва да работи на `http://localhost:8000`.
 
 ```bash
 cd frontend
