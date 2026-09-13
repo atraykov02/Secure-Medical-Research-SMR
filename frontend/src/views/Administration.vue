@@ -3,6 +3,7 @@ import { onMounted, reactive, ref } from 'vue'
 import { api, errorText } from '../api'
 import type { Organization, User, Role } from '../types'
 import { PageHead } from '../components/Ui.vue'
+import PasswordInput from '../components/PasswordInput.vue'
 import { tr } from '../i18n'
 import { CircleCheck, Pencil, Plus, RefreshCw, Trash2, X } from 'lucide-vue-next'
 import { toast } from '../stores/toast'
@@ -269,7 +270,7 @@ function deleteButtonLabel(): string {
       <label class="field !my-0">Име<input v-model="userForm.first_name" required></label>
       <label class="field !my-0">Фамилия<input v-model="userForm.last_name" required></label>
       <label class="field !my-0">Имейл<input v-model="userForm.email" type="email" required></label>
-      <label class="field !my-0">{{ userPasswordLabel() }}<input v-model="userForm.password" type="password" minlength="8" :required="!editingUserId"></label>
+      <label class="field !my-0">{{ userPasswordLabel() }}<PasswordInput v-model="userForm.password" :minlength="8" :required="!editingUserId" autocomplete="new-password" /></label>
       <label class="field !my-0">Роля
         <select v-model="userForm.role">
           <option value="RESEARCHER">Изследовател</option>

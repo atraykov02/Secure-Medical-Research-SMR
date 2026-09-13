@@ -5,6 +5,7 @@ import { useAuthStore } from '../stores/auth'
 import { errorText } from '../api'
 import { ShieldCheck, Network } from 'lucide-vue-next'
 import Spinner from '../components/Spinner.vue'
+import PasswordInput from '../components/PasswordInput.vue'
 import { toast } from '../stores/toast'
 import logoUrl from '../components/logo.png'
 
@@ -81,7 +82,7 @@ function submitButtonLabel(): string {
           <input v-model="email" type="email" required autocomplete="username">
         </label>
         <label class="field">Парола
-          <input v-model="password" type="password" required autocomplete="current-password">
+          <PasswordInput v-model="password" required autocomplete="current-password" />
         </label>
 
         <div v-if="error" class="note-error">{{ error }}</div>

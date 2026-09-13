@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import Spinner from './Spinner.vue'
 import Toaster from './Toaster.vue'
+import PasswordInput from './PasswordInput.vue'
 import { toast } from '../stores/toast'
 
 describe('интерактивна обратна връзка', () => {
@@ -14,6 +15,22 @@ describe('интерактивна обратна връзка', () => {
     const wrapper = mount(Spinner, { props: { size: 24 } })
     expect(wrapper.attributes('role')).toBe('status')
     expect(wrapper.attributes('aria-label')).toBe('Зареждане')
+  })
+
+  it('показва и скрива въведената парола', async () => {
+    const wrapper = mount(PasswordInput, { props: { modelValue: 'Тайна123!' } })
+    const input = wrapper.get('input')
+    const toggle = wrapper.get('button')
+
+    expect(input.attributes('type')).toBe('password')
+    expect(toggle.attributes('aria-label')).toBe('Покажи паролата')
+
+    await toggle.trigger('click')
+    expect(input.attributes('type')).toBe('text')
+    expect(toggle.attributes('aria-label')).toBe('Скрий паролата')
+
+    await toggle.trigger('click')
+    expect(input.attributes('type')).toBe('password')
   })
 
   it('показва и автоматично скрива toast известие', async () => {

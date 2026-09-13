@@ -5,6 +5,7 @@ import { api, errorText } from '../api'
 import { useAuthStore } from '../stores/auth'
 import { ShieldCheck } from 'lucide-vue-next'
 import Spinner from '../components/Spinner.vue'
+import PasswordInput from '../components/PasswordInput.vue'
 import { toast } from '../stores/toast'
 
 const form = reactive({ first_name: '', last_name: '', email: '', password: '', confirm: '' })
@@ -59,8 +60,8 @@ function submitButtonLabel(): string {
           <label class="field">Фамилия<input v-model="form.last_name" required></label>
         </div>
         <label class="field">Имейл адрес<input v-model="form.email" type="email" required autocomplete="email"></label>
-        <label class="field">Парола<input v-model="form.password" type="password" minlength="8" required autocomplete="new-password"></label>
-        <label class="field">Повторете паролата<input v-model="form.confirm" type="password" minlength="8" required autocomplete="new-password"></label>
+        <label class="field">Парола<PasswordInput v-model="form.password" :minlength="8" required autocomplete="new-password" /></label>
+        <label class="field">Повторете паролата<PasswordInput v-model="form.confirm" :minlength="8" required autocomplete="new-password" /></label>
 
         <div v-if="error" class="note-error">{{ error }}</div>
         <button class="btn-primary mt-1 w-full py-3" :disabled="busy">
